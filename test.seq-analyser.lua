@@ -5,11 +5,11 @@ local data = "abcddcbaabcdadcbacbb"
 data="abcda"
 
 --data = io.stdin:read("*a")
-print("Analyse:", data)
+print("-- Analyse:", data)
 
 local seqs = analyse(data, 1, 3)
 
-print("Result:")
+print("Result =")
 
 local tprint = require "tprint" -- https://github.com/tst2005/lua-tprint/
 print(tprint(seqs,{inline=false}))

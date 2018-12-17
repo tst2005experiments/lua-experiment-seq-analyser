@@ -46,7 +46,7 @@ local function analyse(data, minlen, markmaxlen)
 			local sub = data:sub(x,x+i)
 			if i > #sub-minlen+1 then break end
 			counta = counta +1
-			print("analyse", sub, counta)
+			print("--", counta, "substring", sub)
 			analyse_this(sub, minlen)
 		end
 	end

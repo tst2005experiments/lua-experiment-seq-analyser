@@ -1,20 +1,20 @@
-```
-Analyse:	abcda
-analyse	a	1
-analyse	ab	2
-analyse	abc	3
-analyse	b	4
-analyse	bc	5
-analyse	bcd	6
-analyse	c	7
-analyse	cd	8
-analyse	cda	9
-analyse	d	10
-analyse	da	11
-analyse	da	12
-analyse	a	13
-analyse	a	14
-Result:
+```lua
+-- Analyse:	abcda
+--	1	substring	a
+--	2	substring	ab
+--	3	substring	abc
+--	4	substring	b
+--	5	substring	bc
+--	6	substring	bcd
+--	7	substring	c
+--	8	substring	cd
+--	9	substring	cda
+--	10	substring	d
+--	11	substring	da
+--	12	substring	da
+--	13	substring	a
+--	14	substring	a
+Result =
 {
 	4,
 	a = {
