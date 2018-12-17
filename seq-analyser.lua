@@ -1,5 +1,5 @@
-local minlen = 1
-local markmaxlen = 5
+local minlen = 2
+--local markmaxlen = 5
 
 local seqs = {0}
 
@@ -7,15 +7,19 @@ local seqs = {0}
 local function analyse_this(substr)
 	assert(#substr >= minlen)
 	local pointer = seqs
-	local maxdepth = math.min(markmaxlen,#substr)
+	--local maxdepth = math.min(markmaxlen,#substr)
+	local maxdepth = #substr
 	local k1, subchain
 
+	local KEYCOUNT,USED=1,2
 	local function ifset(t,k)
 		local v = t[k]
 		if not v then
-			v = {0}
+			v = {[KEYCOUNT]=0,[USED]=1}
 			t[k] = v
-			t[1]=t[1]+1 -- increase the alphabet count for the parent level
+			t[KEYCOUNT]=t[KEYCOUNT]+1 -- increase the alphabet count for the parent level
+		else
+			v[USED]=v[USED]+1 -- increase the used count of this node
 		end
 		return v
 	end
@@ -23,6 +27,7 @@ local function analyse_this(substr)
 	for depth=1,maxdepth-minlen+1 do
 		k1 = substr:sub(depth,depth)
 		subchain = ifset(pointer, k1)
+		subchain[USED]=subchain[USED]+1
 		pointer = subchain
 	end
 	k1 = substr:sub(maxdepth-minlen+1, maxdepth)
@@ -30,10 +35,12 @@ local function analyse_this(substr)
 end
 
 -- split the data to lot of parts to analyse
-local function analyse(data)
+local function analyse(data, markmaxlen)
+	--markmaxlen = markmaxlen or 5
+	assert(markmaxlen)
 	local counta = 0
 	for x=1,#data-minlen+1 do
-		for i=1,markmaxlen-minlen+1 do
+		for i=minlen-1,markmaxlen-1 do
 			local sub = data:sub(x,x+i)
 			if i > #sub-minlen+1 then break end
 			counta = counta +1
@@ -41,52 +48,7 @@ local function analyse(data)
 			analyse_this(sub)
 		end
 	end
+	return seqs
 end
 
-
-local data = "abcddcbaabcdadcbacbb"
---data="abcda"
-
-data = io.stdin:read("*a")
-print("Analyse:", data)
-analyse(data)
-
-print("Result:")
-
-local tprint = require "tprint" -- https://github.com/tst2005/lua-tprint/
-print(tprint(seqs,{inline=false}))
-
-local function keysarein(seqs, pattern)
-	for k in pairs(seqs) do
-		if type(k) =="string" and not string.find(k, pattern) then
-			return false
-		end
-	end
-	return true
-end
-
-
---[[
-local level=1
-local check = {
-	[2] = function(seqs)	return keysarein(seqs, "^[01]$")	end,
-	[8] = function(seqs)	return keysarein(seqs, "^[0-7]$")	end,
-	[10] = function(seqs)	return keysarein(seqs, "^[0-9]$")	end,
-	[16] = function(seqs)	return keysarein(seqs, "^[0-9a-fA-F]$")	end,
-}
-local data_abet=seqs[1]
-
-if check[data_abet] then
-	print(data_abet, check[data_abet](seqs))
-end
-local function gettheshortest(seqs, abet)
-	local pointer = seqs
-
-	if pointer[1] >= abet then
-		
-	end
-end
-]]--
-
-local abet = seqs[1] -- the alphabet is all characters analysed (the size of the first level)
-
+return {analyse=analyse}
