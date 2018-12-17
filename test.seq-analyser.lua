@@ -7,7 +7,7 @@ data="abcda"
 --data = io.stdin:read("*a")
 print("Analyse:", data)
 
-local seqs = analyse(data, 3)
+local seqs = analyse(data, 1, 3)
 
 print("Result:")
 

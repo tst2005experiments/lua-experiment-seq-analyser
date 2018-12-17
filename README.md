@@ -1,67 +1,106 @@
 ```
 Analyse:	abcda
-analyse	ab	1
-analyse	abc	2
-analyse	bc	3
-analyse	bcd	4
-analyse	cd	5
-analyse	cda	6
-analyse	da	7
+analyse	a	1
+analyse	ab	2
+analyse	abc	3
+analyse	b	4
+analyse	bc	5
+analyse	bcd	6
+analyse	c	7
+analyse	cd	8
+analyse	cda	9
+analyse	d	10
+analyse	da	11
+analyse	da	12
+analyse	a	13
+analyse	a	14
 Result:
 {
 	4,
-	b = {
-		2,
-		4,
-		c = {
-			1,
-			2,
-			cd = {
-				0,
-				1,
-			},
-		},
-		bc = {
-			0,
-			1,
-		},
-	},
 	a = {
 		2,
-		4,
-		ab = {
+		10,
+		a = {
 			0,
-			1,
+			3,
 		},
 		b = {
-			1,
 			2,
-			bc = {
+			4,
+			c = {
+				1,
+				2,
+				c = {
+					0,
+					1,
+				},
+			},
+			b = {
 				0,
 				1,
 			},
 		},
 	},
 	d = {
-		1,
 		2,
-		da = {
+		6,
+		a = {
+			1,
+			4,
+			a = {
+				0,
+				2,
+			},
+		},
+		d = {
 			0,
 			1,
 		},
 	},
 	c = {
 		2,
-		4,
-		d = {
+		6,
+		c = {
+			0,
 			1,
+		},
+		d = {
 			2,
-			da = {
+			4,
+			a = {
+				1,
+				2,
+				a = {
+					0,
+					1,
+				},
+			},
+			d = {
 				0,
 				1,
 			},
 		},
-		cd = {
+	},
+	b = {
+		2,
+		6,
+		c = {
+			2,
+			4,
+			c = {
+				0,
+				1,
+			},
+			d = {
+				1,
+				2,
+				d = {
+					0,
+					1,
+				},
+			},
+		},
+		b = {
 			0,
 			1,
 		},
